@@ -9,7 +9,11 @@
 </head>
 
 <body>
-    <h1 class="text-6xl">Sagnik</h1>
+    <div class="max-w-screen-md mx-auto mt-10">
+        {{ $slot }}
+    </div>
+    {{-- similar to virw slots --}}
+    {{-- <h1 class="text-6xl">Sagnik</h1> --}}
 </body>
 
 </html>

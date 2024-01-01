@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('jobs.index');
 });
+
+// Route::get('test', [JobController::class, 'index']);
+// To use controllers without using laravel conventions
+
+Route::resource('jobs', JobController::class);
