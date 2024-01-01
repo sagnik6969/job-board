@@ -8,8 +8,8 @@
     @vite('resources/css/app.css')
 </head>
 
-<body>
-    <div class="max-w-screen-md mx-auto mt-10">
+<body class="mx-auto mt-10 max-w-2xl bg-slate-200 text-slate-700">
+    <div>
         {{ $slot }}
     </div>
     {{-- similar to virw slots --}}
