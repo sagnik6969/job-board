@@ -23,7 +23,6 @@
                 </x-tag>
             </div>
         </div>
-        <p class="text-sm text-slate-500">{{ $job->description }}</p>
         {{$slot}}
     </x-card>
 </div>

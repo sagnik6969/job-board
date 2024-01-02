@@ -3,16 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class JobController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = \App\Models\Job::all();
+        $search = $request->search;
+        $min_salary = $request->min_salary;
+        $max_salary = $request->max_salary;
+
+        // var_dump($search, $min_salary, $max_salary);
+
+        // error_log(
+        //     var_dump($request->search)
+        // );
+
+        $query = Job::query();
+
+        $query->when($search, fn(Builder $q) => $q->where('title', 'Like', "%" . $search . "%"));
+        $query->when($min_salary, fn(Builder $q) => $q->where('salary', '>=', $min_salary));
+        $query->when($max_salary, fn(Builder $q) => $q->where('salary', '<=', $max_salary));
+
+        $jobs = $query->get();
 
         return view('job.index', [
             'jobs' => $jobs
