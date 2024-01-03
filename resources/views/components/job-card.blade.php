@@ -15,14 +15,18 @@
             </div>
             <div class="flex space-x-1 text-xs">
                 <x-tag>
-                    {{ Str::ucfirst($job->experience) }}
+                    <a href="{{ route('jobs.index', ['experience' => $job->experience]) }}">
+                        {{ $job->experience }}
+                    </a>
                     {{-- TO make first element uppercase --}}
                 </x-tag>
                 <x-tag>
-                    {{ $job->category }}
+                    <a href="{{ route('jobs.index', ['category' => $job->category]) }}">
+                        {{ $job->category }}
+                    </a>
                 </x-tag>
             </div>
         </div>
-        {{$slot}}
+        {{ $slot }}
     </x-card>
 </div>
