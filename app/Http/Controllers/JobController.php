@@ -14,38 +14,13 @@ class JobController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->search;
-        $min_salary = $request->min_salary;
-        $max_salary = $request->max_salary;
-        $experience = $request->experience;
-        $category = $request->category;
-
-        $query = Job::query();
-
-        $query->when(
-            $search,
-            fn(Builder $q) =>
-
-            $q->where(
-                // the outer where function is applied so that parenthesis is applied between
-                // the two or condition
-
-                // Query with outer where 
-                // select * from `jobs` where (`title` Like '%Job%' or `description` Like '%Job%') and `salary` >= '1' and `salary` <= '100000'                
-
-                // Query without outer where 
-                // select * from `jobs` where `title` Like '%Job%' or `description` Like '%Job%' and `salary` >= '1' and `salary` <= '100000'                
-
-                fn($q) =>
-                $q->where('title', 'Like', "%" . $search . "%")
-                    ->orWhere('description', 'Like', "%" . $search . "%")
-            )
-        );
-        $query->when($min_salary, fn(Builder $q) => $q->where('salary', '>=', $min_salary));
-        $query->when($max_salary, fn(Builder $q) => $q->where('salary', '<=', $max_salary));
-        $query->when($experience, fn(Builder $q) => $q->where('experience', $experience));
-        $query->when($category, fn(Builder $q) => $q->where('category', $category));
-        $jobs = $query->get();
+        $jobs = Job::filter($request->only([
+            'search',
+            'min_salary',
+            'max_salary',
+            'experience',
+            'category'
+        ]))->get();
 
         return view('job.index', [
             'jobs' => $jobs
