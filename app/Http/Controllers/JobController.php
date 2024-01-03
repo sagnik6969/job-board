@@ -18,15 +18,28 @@ class JobController extends Controller
         $min_salary = $request->min_salary;
         $max_salary = $request->max_salary;
 
-        // var_dump($search, $min_salary, $max_salary);
-
-        // error_log(
-        //     var_dump($request->search)
-        // );
-
+        
         $query = Job::query();
 
-        $query->when($search, fn(Builder $q) => $q->where('title', 'Like', "%" . $search . "%"));
+        $query->when(
+            $search,
+            fn(Builder $q) =>
+
+            $q->where(
+                // the outer where function is applied so that parenthesis is applied between
+                // the two or condition
+
+                // Query with outer where 
+                // select * from `jobs` where (`title` Like '%Job%' or `description` Like '%Job%') and `salary` >= '1' and `salary` <= '100000'                
+
+                // Query without outer where 
+                // select * from `jobs` where `title` Like '%Job%' or `description` Like '%Job%' and `salary` >= '1' and `salary` <= '100000'                
+
+                fn($q) =>
+                $q->where('title', 'Like', "%" . $search . "%")
+                    ->orWhere('description', 'Like', "%" . $search . "%")
+            )
+        );
         $query->when($min_salary, fn(Builder $q) => $q->where('salary', '>=', $min_salary));
         $query->when($max_salary, fn(Builder $q) => $q->where('salary', '<=', $max_salary));
 
