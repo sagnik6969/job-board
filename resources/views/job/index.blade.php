@@ -19,23 +19,15 @@
                 </div>
                 <div>
                     <div class="mb-1 font-semibold">Experience</div>
-                    <label for="experience" class="mb-1 flex items-center">
-                        <input type="radio" name="experience" value="" @checked(!request('experience'))>
-                        {{-- in laravel requests empty strings ("") will be automatically converted to null --}}
-                        <span class="ml-2">All</span>
-                    </label>
-                    <label for="experience" class="mb-1 flex items-center">
-                        <input type="radio" name="experience" value="junior" @checked(request('experience') == 'junior')>
-                        <span class="ml-2">junior</span>
-                    </label>
-                    <label for="experience" class="mb-1 flex items-center">
-                        <input type="radio" name="experience" value="intermediate" @checked(request('experience') == 'intermediate')>
-                        <span class="ml-2">intermediate</span>
-                    </label>
-                    <label for="experience" class="mb-1 flex items-center">
-                        <input type="radio" name="experience" value="seiner" @checked(request('experience') == 'seiner')>
-                        <span class="ml-2">seiner</span>
-                    </label>
+                    <x-radio-group name="experience" :options="array_combine(
+                        array_map(fn($value) => Str::title($value), \App\Models\Job::$experiences),
+                        \App\Models\Job::$experiences,
+                    )"></x-radio-group>
+                    {{-- Array map => similar to js array.map() --}}
+                </div>
+                <div>
+                    <div class="mb-1 font-semibold">Category</div>
+                    <x-radio-group name="category" :options="\App\Models\Job::$category"></x-radio-group>
                 </div>
             </div>
             <button

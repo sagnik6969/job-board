@@ -18,6 +18,7 @@ class JobController extends Controller
         $min_salary = $request->min_salary;
         $max_salary = $request->max_salary;
         $experience = $request->experience;
+        $category = $request->category;
 
         $query = Job::query();
 
@@ -43,7 +44,9 @@ class JobController extends Controller
         $query->when($min_salary, fn(Builder $q) => $q->where('salary', '>=', $min_salary));
         $query->when($max_salary, fn(Builder $q) => $q->where('salary', '<=', $max_salary));
         $query->when($experience, fn(Builder $q) => $q->where('experience', $experience));
+        $query->when($category, fn(Builder $q) => $q->where('category', $category));
         $jobs = $query->get();
+
         return view('job.index', [
             'jobs' => $jobs
         ]);
