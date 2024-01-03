@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class JobController extends Controller
 {
