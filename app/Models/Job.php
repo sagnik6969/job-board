@@ -43,9 +43,15 @@ class Job extends Model
             fn(Builder $q) =>
 
             $q->where(
-                fn($q) =>
+                fn(Builder|QueryBuilder $q) =>
                 $q->where('title', 'Like', "%" . $search . "%")
                     ->orWhere('description', 'Like', "%" . $search . "%")
+                    ->orWhereHas(
+                        'employer',
+                        fn(Builder|QueryBuilder $q) =>
+                        $q->where('company_name', 'LIKE', "%" . $search . "%")
+                    )
+                    // orWhereHas => where condition for nested relationship => foreign key tables
             )
         );
         $query->when($min_salary, fn(Builder $q) => $q->where('salary', '>=', $min_salary));
