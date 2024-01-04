@@ -37,8 +37,10 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $remember)) {
             return redirect()->intended('/');
+            // intended => redirects to the previously intended page after login if no intended page then redirects to default.
         } else {
             return redirect()->back()->with('error', 'Invalid email or password');
+            // back() => returns to the previous page from where the post method call is made
         }
 
         // dd($credentials, $remember);
@@ -47,8 +49,17 @@ class AuthController extends Controller
     }
 
 
-    public function destroy(string $id)
+    public function destroy()
     {
-        //
+        Auth::logout();
+
+        request()->session()->invalidate();
+        // delete the session data and regenerates the id.
+
+        request()->session()->regenerateToken();
+        // regenerates the csrf token 
+        // All the forms that were loaded before the logout becomes invalid.
+
+        return redirect()->back();
     }
 }

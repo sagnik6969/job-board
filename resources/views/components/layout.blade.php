@@ -11,7 +11,27 @@
 
 <body class="mx-auto mt-10 max-w-2xl bg-slate-200 text-slate-700">
     <div>
-        {{ auth()->user()->name ?? 'Guest' }}
+        <nav class="mb-8 text-lg font-medium flex justify-between">
+            <ul>
+                <li>
+                    <a href="{{ route('jobs.index') }}">Home</a>
+                </li>
+            </ul>
+            <ul>
+                @auth
+                    <form action="{{ route('auth.destroy') }}" method="POST">
+                        @method('delete')
+                        @csrf
+                        <button>Logout</button>
+                    </form>
+                @else
+                    <a href="{{ route('auth.create') }}">Login</a>
+                @endauth
+
+            </ul>
+        </nav>
+        {{-- {{ auth()->user()->name ?? 'Guest' }} --}}
+        {{-- if user is  authenticated we can get the userlike above --}}
         {{ $slot }}
     </div>
     {{-- similar to virw slots --}}
