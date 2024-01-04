@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,8 @@ Route::get('/', function () {
 // To use controllers without using laravel conventions
 
 Route::resource('jobs', JobController::class);
+Route::resource('auth', AuthController::class)->only(['create', 'store']);
+
+Route::get('login',fn()=> redirect()->route('auth.create'));
+// in laravel it is assumed that default route for login is route('login') is is reflected in
+// Authenticate.php middleware. => this is why above redirect function is created.
