@@ -67,7 +67,7 @@ class JobPolicy
 
     public function apply(User $user, Job $job)
     {
-        return false;
+        return !$job->hasUserApplied($user);
 
     }
 }

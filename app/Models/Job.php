@@ -57,7 +57,7 @@ class Job extends Model
                         fn(Builder|QueryBuilder $q) =>
                         $q->where('company_name', 'LIKE', "%" . $search . "%")
                     )
-                    // orWhereHas => where condition for nested relationship => foreign key tables
+                // orWhereHas => where condition for nested relationship => foreign key tables
             )
         );
         $query->when($min_salary, fn(Builder $q) => $q->where('salary', '>=', $min_salary));
@@ -67,4 +67,18 @@ class Job extends Model
 
         return $query;
     }
+
+    public function hasUserApplied(User|int $user): bool
+    {
+        return $this->where('id', $this->id)
+            ->whereHas(
+                'jobApplications',
+                fn(Builder $query) => $query->where('user_id', $user->id ?? $user)
+            )
+            ->get()->count() != 0;
+        // whereHas => used to perform queries on the nested tables.
+    }
+
+    // In PHP, you can use the arrow (->) or (::) syntax to call static methods, 
+    // but accessing static properties should use the double-colon (::) syntax.
 }

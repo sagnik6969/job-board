@@ -75,12 +75,24 @@ namespace App\Models{
 /**
  * App\Models\JobApplication
  *
- * @property-read \App\Models\Job|null $job
+ * @property int $id
+ * @property int $user_id
+ * @property int $job_id
+ * @property int $expected_salary
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Job $job
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\JobApplicationFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|JobApplication newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|JobApplication newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|JobApplication query()
+ * @method static \Illuminate\Database\Eloquent\Builder|JobApplication whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|JobApplication whereExpectedSalary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|JobApplication whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|JobApplication whereJobId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|JobApplication whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|JobApplication whereUserId($value)
  */
 	class JobApplication extends \Eloquent {}
 }
