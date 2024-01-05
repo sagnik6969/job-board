@@ -11,13 +11,22 @@
             <h1 class="text-xl font-medium">
                 Your Job Application
             </h1>
-            <form class="p-4" action="{{ route('jobs.application.store', ['job' => $job]) }}" method="POST">
+            <form class="p-4" action="{{ route('jobs.application.store', ['job' => $job]) }}" method="POST"
+                enctype="multipart/form-data">
+                {{-- enctype="multipart/form-data" => needed for file upload --}}
                 @csrf
                 <div class="mb-4">
                     <label class="font-semibold block mb-2">Expected Salary</label>
                     <x-text-input :value="old('email')" type="number" name="expected_salary"
                         placeholder="Enter your expected salary . . . . ."></x-text-input>
                     @error('expected_salary')
+                        <p class="text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label class="font-semibold block mb-2">Expected Salary</label>
+                    <x-text-input type="file" name="cv"></x-text-input>
+                    @error('cv')
                         <p class="text-sm text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
