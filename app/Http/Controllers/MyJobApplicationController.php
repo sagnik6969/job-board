@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JobApplication;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -19,14 +20,20 @@ class MyJobApplicationController extends Controller
                         ->withAvg('jobApplications', 'expected_salary')
                     ,
                     'job.employer'
+                    // This is how to run nested queries on nested tables
                 ])
                 ->get()
         ]);
     }
 
 
-    public function destroy(string $id)
+    public function destroy(JobApplication $my_job_application)
     {
-        //
+        // $my_job_application => for route model binding this name must be equal to the name specified 
+        // in the php artisan route:list
+
+        $my_job_application->delete();
+
+        return redirect()->back()->with('success', 'Application cancelled successfully!');
     }
 }

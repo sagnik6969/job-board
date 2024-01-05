@@ -19,7 +19,7 @@
             </ul>
             <ul>
                 @auth
-                    <form action="{{ route('auth.destroy') }}" method="POST">
+                    <form class="flex space-x-6" action="{{ route('auth.destroy') }}" method="POST">
                         @method('delete')
                         @csrf
                         <a class="hover:underline" href="{{ route('my-job-applications.index') }}">My Applications</a>
