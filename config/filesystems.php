@@ -1,5 +1,5 @@
 <?php
-
+// this file is used to manage file systems in laravel 
 return [
 
     /*
@@ -28,18 +28,40 @@ return [
     |
     */
 
+    // drivers => local,ftp,sftp,s3
+    // local => files are stored locally in the server
+    // ftp,sftp => files are stored in remote servers
+    // s3 => aws service for file storage.
+
+    // 'root' => storage_path('app/public'), => defines where the files should be stored if they are stored locally
+    // 'url' => defines the public url of the files if visibility is public
+    // 'visibility' => defines whether the files are visible to everyone or 
+    // only a set of authorized users
+
+    // With this file systems abstractions you can use the
+    //  same code to store files in different drivers (local, ftp, s3) etc 
+
     'disks' => [
+
+        'private' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private'),
+            'visibility' => 'private'
+        ],
 
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            // points to storage/app
+            // note everything that is stored inside the
+            // storage folder is not publicly accessible.
             'throw' => false,
         ],
 
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -74,3 +96,4 @@ return [
     ],
 
 ];
+
