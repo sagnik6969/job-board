@@ -11,6 +11,8 @@ class Employer extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['company_name', 'user_id'];
+
     public function jobs(): HasMany
     {
         return $this->hasMany(Job::class);
@@ -26,4 +28,4 @@ class Employer extends Model
 // hasOne => Define one to one relationship
 // belongsTo => Define an inverse one-to-one or many relationship.
 
-https://stackoverflow.com/questions/37582848/what-is-the-difference-between-belongsto-and-hasone-in-laravel
+https: //stackoverflow.com/questions/37582848/what-is-the-difference-between-belongsto-and-hasone-in-laravel
