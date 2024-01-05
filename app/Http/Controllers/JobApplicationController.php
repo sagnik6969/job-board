@@ -19,8 +19,9 @@ class JobApplicationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(\App\Models\Job $job)
+    public function create(Job $job)
     {
+        $this->authorize('apply', $job);
         return view('job_application.create', ['job' => $job]);
     }
 
@@ -32,12 +33,6 @@ class JobApplicationController extends Controller
         $request->validate([
             'expected_salary' => 'required|numeric|min:1|max:10000000'
         ]);
-
-        try {
-            //code...
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
 
         JobApplication::create([
             'expected_salary' => $request->expected_salary,
