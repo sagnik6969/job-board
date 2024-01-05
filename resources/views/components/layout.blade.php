@@ -22,7 +22,8 @@
                     <form action="{{ route('auth.destroy') }}" method="POST">
                         @method('delete')
                         @csrf
-                        <button>Logout</button>
+                        <a class="hover:underline" href="{{ route('my-job-applications.index') }}">My Applications</a>
+                        <button class="hover:underline">Logout</button>
                     </form>
                 @else
                     <a href="{{ route('auth.create') }}">Login</a>

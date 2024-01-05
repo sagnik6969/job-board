@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\MyJobApplicationController;
 use App\Models\JobApplication;
 use Illuminate\Support\Facades\Route;
 
@@ -35,7 +36,7 @@ Route::delete('auth', [AuthController::class, 'destroy'])->name('auth.destroy');
 // we have to define this separately because by default laravel resource_controller->destroy accepts an id 
 // and we don't have as id to pass.
 
-Route::middleware('auth')->resource('jobs.application', JobApplicationController::class)->only(['create','store','destroy']);
+Route::middleware('auth')->resource('jobs.application', JobApplicationController::class)->only(['create', 'store', 'destroy']);
 // 'auth' middleware alias for authentication => cookie based authentication for blade
 // You can see all middleware aliases at app\http\kernel.php
 
@@ -51,5 +52,6 @@ Route::middleware('auth')->resource('jobs.application', JobApplicationController
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //  return $request->user();
 // });
-
-
+Route::middleware('auth')
+    ->resource('my-job-applications', MyJobApplicationController::class)
+    ->only(['index', 'destroy']);
