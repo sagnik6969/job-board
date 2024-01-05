@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class MyJobApplicationController extends Controller
@@ -12,7 +13,13 @@ class MyJobApplicationController extends Controller
             'applications' => auth()
                 ->user()
                 ->jobApplications()
-                ->with('job.employer')
+                ->with([
+                    'job' => fn($query) => $query
+                        ->withCount('jobApplications')
+                        ->withAvg('jobApplications', 'expected_salary')
+                    ,
+                    'job.employer'
+                ])
                 ->get()
         ]);
     }
