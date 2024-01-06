@@ -18,6 +18,8 @@ class MyJobApplicationController extends Controller
                     'job' => fn($query) => $query
                         ->withCount('jobApplications')
                         ->withAvg('jobApplications', 'expected_salary')
+                        ->withTrashed()
+                    // To load soft deleted records
                     ,
                     'job.employer'
                     // This is how to run nested queries on nested tables

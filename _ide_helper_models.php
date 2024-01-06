@@ -49,6 +49,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $employer_id
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Employer $employer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\JobApplication> $jobApplications
  * @property-read int|null $job_applications_count
@@ -56,9 +57,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Job filter(array $filters)
  * @method static \Illuminate\Database\Eloquent\Builder|Job newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Job newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Job onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Job query()
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereCategory($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Job whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereEmployerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereExperience($value)
@@ -67,6 +70,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereSalary($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Job withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Job withoutTrashed()
  */
 	class Job extends \Eloquent {}
 }
@@ -81,6 +86,7 @@ namespace App\Models{
  * @property int $expected_salary
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $cv_path
  * @property-read \App\Models\Job $job
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\JobApplicationFactory factory($count = null, $state = [])
@@ -88,6 +94,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|JobApplication newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|JobApplication query()
  * @method static \Illuminate\Database\Eloquent\Builder|JobApplication whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|JobApplication whereCvPath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|JobApplication whereExpectedSalary($value)
  * @method static \Illuminate\Database\Eloquent\Builder|JobApplication whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|JobApplication whereJobId($value)
