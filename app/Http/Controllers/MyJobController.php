@@ -86,8 +86,11 @@ class MyJobController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Job $my_job)
     {
-        //
+        $this->authorize('delete', $my_job);
+        $my_job->delete();
+
+        return redirect()->route('my_jobs.index');
     }
 }

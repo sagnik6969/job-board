@@ -72,3 +72,7 @@ Route::middleware(['auth', 'employer']) //employer => name of the middlewire ali
 // after that we can register the middlewire alias in kernel.php  
 // then we can use the middlewire in any route
 
+// soft delete => do not delete the row from the database just add a deleted_at row
+// $table->softDeletes();
+// To add soft deletes to jobs table.
+// use SoftDeletes => to implement soft delete to a model.

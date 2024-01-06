@@ -1,6 +1,6 @@
 <x-layout>
     <div class="mb-5 text-right">
-        <x-link-button href="route('my_jobs.create')">
+        <x-link-button href="{{ route('my_jobs.create') }}">
             Add New Job
         </x-link-button>
     </div>
@@ -21,7 +21,14 @@
                     </div>
                 @endforeach
             </div>
-            <x-link-button href="{{ route('my_jobs.edit', ['my_job' => $job]) }}">Edit Job</x-link-buttonn>
+            <div class="flex space-x-2">
+                <x-link-button href="{{ route('my_jobs.edit', ['my_job' => $job]) }}">Edit Job</x-link-buttonn>
+                    <form action="{{ route('my_jobs.destroy', ['my_job' => $job]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <x-button href="">Delete Job</x-buttonn>
+                    </form>
+            </div>
         </x-job-card>
     @endforeach
 </x-layout>
