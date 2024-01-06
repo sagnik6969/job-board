@@ -1,9 +1,4 @@
 <x-layout>
-    @if (session('error'))
-        <x-alert>
-            {{ session('error') }}
-        </x-alert>
-    @endif
     <h1 class="text-3xl font-semibold my-11 block text-center">Sign In to your account</h1>
     <x-card>
         <form class="p-4" action="{{ route('auth.store') }}" method="POST">

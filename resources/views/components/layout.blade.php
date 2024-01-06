@@ -22,6 +22,7 @@
                     <form class="flex space-x-6" action="{{ route('auth.destroy') }}" method="POST">
                         @method('delete')
                         @csrf
+                        <a href="{{ route('my_jobs.index') }}">My Jobs</a>
                         <a class="hover:underline" href="{{ route('my-job-applications.index') }}">My Applications</a>
                         <button class="hover:underline">Logout</button>
                     </form>
@@ -33,6 +34,11 @@
         </nav>
         {{-- {{ auth()->user()->name ?? 'Guest' }} --}}
         {{-- if user is  authenticated we can get the userlike above --}}
+        @if (session('error'))
+            <x-alert>
+                {{ session('error') }}
+            </x-alert>
+        @endif
 
         @if (session('success'))
             <div role="alert"
