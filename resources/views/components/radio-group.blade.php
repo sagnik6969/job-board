@@ -9,7 +9,7 @@
 
     @foreach ($optionsWithLabels as $label => $option)
         <label for="{{ $name }}" class="mb-1 flex items-center">
-            <input type="radio" name="{{ $name }}" value="{{ $option }}" @checked(request($name) == $option || old($name) == $option)>
+            <input type="radio" name="{{ $name }}" value="{{ $option }}" @checked($value == $option || request($name) == $option || old($name) == $option)>
             <span class="ml-2">{{ $label }}</span>
         </label>
     @endforeach
